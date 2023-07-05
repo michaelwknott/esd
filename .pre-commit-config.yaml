@@ -1,0 +1,26 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+    -   id: check-yaml
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
+-   repo: https://github.com/psf/black
+    rev: 23.3.0
+    hooks:
+    -   id: black
+        args: ['--config=./pyproject.toml']
+-   repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.0.276
+    hooks:
+      - id: ruff
+-   repo: https://github.com/pre-commit/mirrors-mypy
+    rev: 'v1.4.1'
+    hooks:
+    -   id: mypy
+        args: [--no-strict-optional, --ignore-missing-imports]
+        additional_dependencies: [
+          fastapi==0.99.1,
+          sqlalchemy==2.0.17,
+          typing-extensions==4.7.1
+        ]
