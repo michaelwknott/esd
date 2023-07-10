@@ -1,6 +1,7 @@
 import pytest
 
 from esd.athlete import FitnessProfile
+from esd.session import Workout
 
 
 @pytest.fixture
@@ -36,4 +37,17 @@ def athlete_missing_mss():
         sprint_distance=5,
         time_trial_time=420,
         sprint_time=0,
+    )
+
+
+@pytest.fixture
+def workout():
+    return Workout(
+        workout_type="Passive Long Intervals - Normal",
+        work_interval_time=3,
+        work_interval_percentage_mas=100,
+        work_interval_percentage_asr=None,
+        rest_interval_time=3,
+        rest_interval_percentage_mas=100,
+        rest_interval_percentage_asr=None,
     )
