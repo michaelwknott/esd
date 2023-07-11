@@ -1,6 +1,10 @@
 import pytest
 
 from esd.athlete import FitnessProfile
+from esd.prescribe import (
+    calculate_rest_interval_distances,
+    calculate_work_interval_distances,
+)
 from esd.session import Workout
 
 
@@ -38,6 +42,7 @@ def athlete_missing_mss():
         time_trial_time=420,
         sprint_time=0,
     )
+    # mas = 4.76
 
 
 @pytest.fixture
@@ -45,9 +50,24 @@ def workout():
     return Workout(
         workout_type="Passive Long Intervals - Normal",
         work_interval_time=3,
-        work_interval_percentage_mas=100,
+        work_interval_percentage_mas=1.0,
         work_interval_percentage_asr=None,
         rest_interval_time=3,
-        rest_interval_percentage_mas=100,
+        rest_interval_percentage_mas=0,
         rest_interval_percentage_asr=None,
     )
+
+
+@pytest.fixture
+def fitness_profiles(athlete_one, athlete_missing_mas, athlete_missing_mss):
+    return [athlete_one, athlete_missing_mas, athlete_missing_mss]
+
+
+@pytest.fixture
+def mas_work_distances(workout, fitness_profiles):
+    return calculate_work_interval_distances(workout, fitness_profiles)
+
+
+@pytest.fixture
+def mas_rest_distances(workout, fitness_profiles):
+    return calculate_rest_interval_distances(workout, fitness_profiles)
