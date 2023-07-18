@@ -33,11 +33,11 @@ def calculate_work_interval_distances(
         work_interval_mas = (
             profile.max_aerobic_speed * workout.work_interval_percentage_mas
         )
-        profile_distance = round(
+        work_interval_distance = round(
             work_interval_mas * _convert_minutes_to_seconds(workout.work_interval_time),
             0,
         )
-        work_distances[profile.name] = profile_distance
+        work_distances[profile.name] = work_interval_distance
     return work_distances
 
 
