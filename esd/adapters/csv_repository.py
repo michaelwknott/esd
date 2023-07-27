@@ -18,7 +18,7 @@ class CsvFitnessProfileRepository(AbstractRepository[FitnessProfile]):
             folder: The directory path for the folder containing the CSV files.
         """
         self._filepath = Path(folder) / "fitness_assessments.csv"
-        self._fitness_profiles: list[FitnessProfile] = []
+        self._fitness_profiles: dict[str, FitnessProfile] = {}
         self._load()
 
     def _load(self):
@@ -53,11 +53,11 @@ class CsvFitnessProfileRepository(AbstractRepository[FitnessProfile]):
                     sprint_time=float(latest_5m[6]),
                 )
 
-                self._fitness_profiles.append(profile)
+                self._fitness_profiles["athlete_name"] = profile
 
     def get(self, id: str) -> FitnessProfile:
         """Get a single entity from the persistence layer."""
-        pass
+        return self._fitness_profiles[id]
 
     def get_all(self) -> Sequence[FitnessProfile]:
         """Get a sequence of entities from the persistence layer."""
