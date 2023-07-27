@@ -1,11 +1,10 @@
 import pytest
-
-from esd.athlete import FitnessProfile
-from esd.prescribe import (
+from domain.athlete import FitnessProfile
+from domain.prescribe import (
     calculate_rest_interval_distances,
     calculate_work_interval_distances,
 )
-from esd.session import Workout
+from domain.session import Workout
 
 
 @pytest.fixture
