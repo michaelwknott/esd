@@ -19,8 +19,3 @@ class AbstractRepository(ABC, Generic[T]):
         raise NotImplementedError(
             "Persistence layer needs to implement a get_all method."
         )
-
-    @abstractmethod
-    def add(self, entity: T) -> None:
-        """Add a single entity record to persistence layer."""
-        raise NotImplementedError("Persistence layer needs to implement an add method.")

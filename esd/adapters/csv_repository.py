@@ -63,10 +63,6 @@ class CsvFitnessProfileRepository(AbstractRepository[FitnessProfile]):
         """Get a sequence of entities from the persistence layer."""
         return list(self._fitness_profiles.values())
 
-    def add(self, entity: FitnessProfile) -> None:
-        """Add a single entity record to persistence layer."""
-        pass
-
 
 class CsvWorkoutRepository(AbstractRepository[Workout]):
     """CSV implementation of  Workout repository."""
@@ -102,10 +98,6 @@ class CsvWorkoutRepository(AbstractRepository[Workout]):
     def get_all(self) -> Sequence[Workout]:
         """Get a sequence of entities from the persistence layer."""
         return list(self._workouts.values())
-
-    def add(self, entity: Workout) -> None:
-        """Add a single entity record to persistence layer."""
-        pass
 
 
 if __name__ == "__main__":
