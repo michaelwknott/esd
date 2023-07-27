@@ -61,7 +61,7 @@ class CsvFitnessProfileRepository(AbstractRepository[FitnessProfile]):
 
     def get_all(self) -> Sequence[FitnessProfile]:
         """Get a sequence of entities from the persistence layer."""
-        pass
+        return list(self._fitness_profiles.values())
 
     def add(self, entity: FitnessProfile) -> None:
         """Add a single entity record to persistence layer."""
@@ -78,21 +78,30 @@ class CsvWorkoutRepository(AbstractRepository[Workout]):
             folder: The directory path for the folder containing the CSV files.
         """
         self._file_path = Path(folder) / "conditioning_workouts.csv"
-        self._workouts: list[Workout] = []
+        self._workouts: dict[str, Workout] = {}
         self._load()
+
+    def _convert_types(self, record: list[str]) -> list:
+        types = [str, int, float, float, int, float, float]
+        return [func(val) for func, val in zip(types, record)]
 
     def _load(self):
         with open(self._file_path) as f:
             reader = csv.reader(f)
             next(reader)  # skip header row
 
+            for record in reader:
+                converted = self._convert_types(record)
+                workout = Workout(*converted)
+                self._workouts[workout.name] = workout
+
     def get(self, id: str) -> Workout:
         """Get a single entity from the persistence layer."""
-        pass
+        return self._workouts[id]
 
     def get_all(self) -> Sequence[Workout]:
         """Get a sequence of entities from the persistence layer."""
-        pass
+        return list(self._workouts.values())
 
     def add(self, entity: Workout) -> None:
         """Add a single entity record to persistence layer."""
