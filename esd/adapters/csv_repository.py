@@ -3,21 +3,22 @@ from collections import defaultdict
 from collections.abc import Sequence
 from pathlib import Path
 
-from domain.athlete import FitnessProfile
-from domain.session import Workout
-from repository import AbstractRepository
+from esd.domain.athlete import FitnessProfile
+from esd.domain.session import Workout
+
+from .repository import AbstractRepository
 
 
 class CsvFitnessProfileRepository(AbstractRepository[FitnessProfile]):
     """CSV implementation of FitnessProfile repository."""
 
-    def __init__(self, folder: str):
+    def __init__(self, filepath: str):
         """Initialise CsvRepository with fitness profiles.
 
         Args:
-            folder: The directory path for the folder containing the CSV files.
+            filepath: The filepath for the fitness assessment CSV files.
         """
-        self._filepath = Path(folder) / "fitness_assessments.csv"
+        self._filepath = Path(filepath)
         self._fitness_profiles: dict[str, FitnessProfile] = {}
         self._load()
 
@@ -53,7 +54,7 @@ class CsvFitnessProfileRepository(AbstractRepository[FitnessProfile]):
                     sprint_time=float(latest_5m[6]),
                 )
 
-                self._fitness_profiles["athlete_name"] = profile
+                self._fitness_profiles[athlete_name] = profile
 
     def get(self, id: str) -> FitnessProfile:
         """Get a single entity from the persistence layer."""
@@ -65,15 +66,15 @@ class CsvFitnessProfileRepository(AbstractRepository[FitnessProfile]):
 
 
 class CsvWorkoutRepository(AbstractRepository[Workout]):
-    """CSV implementation of  Workout repository."""
+    """CSV implementation of Workout repository."""
 
-    def __init__(self, folder: str):
+    def __init__(self, filepath: str):
         """Initialise CsvRepository with workouts.
 
         Args:
-            folder: The directory path for the folder containing the CSV files.
+            filepath: The filepath for the workouts CSV file.
         """
-        self._file_path = Path(folder) / "conditioning_workouts.csv"
+        self._file_path = Path(filepath)
         self._workouts: dict[str, Workout] = {}
         self._load()
 
@@ -98,7 +99,3 @@ class CsvWorkoutRepository(AbstractRepository[Workout]):
     def get_all(self) -> Sequence[Workout]:
         """Get a sequence of entities from the persistence layer."""
         return list(self._workouts.values())
-
-
-if __name__ == "__main__":
-    repo = CsvFitnessProfileRepository("data")
