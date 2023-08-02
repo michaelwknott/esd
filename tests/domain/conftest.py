@@ -17,9 +17,6 @@ def athlete_one():
         time_trial_time=480,
         sprint_time=0.6,
     )
-    # mas = 4.17
-    # mss = 8.33
-    # asr = 4.16
 
 
 @pytest.fixture
@@ -42,7 +39,6 @@ def athlete_missing_mss():
         time_trial_time=420,
         sprint_time=0,
     )
-    # mas = 4.76
 
 
 @pytest.fixture
@@ -70,5 +66,4 @@ def mas_work_distances(workout, fitness_profiles):
 
 @pytest.fixture
 def mas_rest_distances(workout, fitness_profiles):
-    return calculate_rest_interval_distances(workout, fitness_profiles)
     return calculate_rest_interval_distances(workout, fitness_profiles)
