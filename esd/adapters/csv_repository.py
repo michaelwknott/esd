@@ -34,12 +34,12 @@ class CsvFitnessProfileRepository(AbstractRepository[FitnessProfile]):
 
             # find latest 2km and 5m for each athlete
             for athlete_name, athlete_results in athlete_records.items():
-                latest_2km = max(
+                latest_2km: list = max(
                     result
                     for result in athlete_results
                     if result[4] == "2km time trial"
                 )
-                latest_5m = max(
+                latest_5m: list = max(
                     result
                     for result in athlete_results
                     if result[4] == "5m flying sprint"
