@@ -1,6 +1,5 @@
 import csv
 from collections import defaultdict
-from collections.abc import Sequence
 from pathlib import Path
 
 from esd.domain.athlete import FitnessProfile
@@ -60,7 +59,7 @@ class CsvFitnessProfileRepository(AbstractRepository[FitnessProfile]):
         """Get a single entity from the persistence layer."""
         return self._fitness_profiles[id]
 
-    def get_all(self) -> Sequence[FitnessProfile]:
+    def get_all(self) -> list[FitnessProfile]:
         """Get a sequence of entities from the persistence layer."""
         return list(self._fitness_profiles.values())
 
@@ -96,6 +95,6 @@ class CsvWorkoutRepository(AbstractRepository[Workout]):
         """Get a single entity from the persistence layer."""
         return self._workouts[id]
 
-    def get_all(self) -> Sequence[Workout]:
+    def get_all(self) -> list[Workout]:
         """Get a sequence of entities from the persistence layer."""
         return list(self._workouts.values())
