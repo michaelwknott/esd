@@ -1,10 +1,6 @@
 import pytest
 
 from esd.domain.athlete import FitnessProfile
-from esd.domain.prescribe import (
-    calculate_rest_interval_distances,
-    calculate_work_interval_distances,
-)
 from esd.domain.session import Workout
 
 
@@ -57,13 +53,3 @@ def workout():
 @pytest.fixture
 def fitness_profiles(athlete_one, athlete_missing_mas, athlete_missing_mss):
     return [athlete_one, athlete_missing_mas, athlete_missing_mss]
-
-
-@pytest.fixture
-def mas_work_distances(workout, fitness_profiles):
-    return calculate_work_interval_distances(workout, fitness_profiles)
-
-
-@pytest.fixture
-def mas_rest_distances(workout, fitness_profiles):
-    return calculate_rest_interval_distances(workout, fitness_profiles)

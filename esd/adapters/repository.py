@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from collections.abc import Sequence
 from typing import Generic, TypeVar
 
 T = TypeVar("T")
@@ -14,7 +13,7 @@ class AbstractRepository(ABC, Generic[T]):
         raise NotImplementedError("Persistence layer needs to implement a get method.")
 
     @abstractmethod
-    def get_all(self) -> Sequence[T]:
+    def get_all(self) -> list[T]:
         """Get a sequence of entities from the persistence layer."""
         raise NotImplementedError(
             "Persistence layer needs to implement a get_all method."
