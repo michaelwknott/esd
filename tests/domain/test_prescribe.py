@@ -1,3 +1,9 @@
+from esd.domain.prescribe import (
+    calculate_rest_interval_distances,
+    calculate_work_interval_distances,
+)
+
+
 class TestPrescribe:
     # names
     ATHLETE_ONE_NAME = "John Smith"
@@ -14,30 +20,34 @@ class TestPrescribe:
     ATHLETE_MISSING_MAS_REST_DISTANCE = 0
     ATHLETE_MISSING_MSS_REST_DISTANCE = 0
 
-    def test_calculate_work_interval_distance(self, mas_work_distances):
+    def test_calculate_work_interval_distance(self, workout, fitness_profiles):
+        work_distances = calculate_work_interval_distances(workout, fitness_profiles)
+
         assert (
-            mas_work_distances[TestPrescribe.ATHLETE_ONE_NAME]
+            work_distances[TestPrescribe.ATHLETE_ONE_NAME]
             == TestPrescribe.ATHLETE_ONE_WORK_DISTANCE
         )
         assert (
-            mas_work_distances[TestPrescribe.ATHLETE_MISSING_MAS_NAME]
+            work_distances[TestPrescribe.ATHLETE_MISSING_MAS_NAME]
             == TestPrescribe.ATHLETE_MISSING_MAS_WORK_DISTANCE
         )
         assert (
-            mas_work_distances[TestPrescribe.ATHLETE_MISSING_MSS_NAME]
+            work_distances[TestPrescribe.ATHLETE_MISSING_MSS_NAME]
             == TestPrescribe.ATHLETE_MISSING_MSS_WORK_DISTANCE
         )
 
-    def test_calculate_rest_interval_distance(self, mas_rest_distances):
+    def test_calculate_rest_interval_distance(self, workout, fitness_profiles):
+        rest_distances = calculate_rest_interval_distances(workout, fitness_profiles)
+
         assert (
-            mas_rest_distances[TestPrescribe.ATHLETE_ONE_NAME]
+            rest_distances[TestPrescribe.ATHLETE_ONE_NAME]
             == TestPrescribe.ATHLETE_ONE_REST_DISTANCE
         )
         assert (
-            mas_rest_distances[TestPrescribe.ATHLETE_MISSING_MAS_NAME]
+            rest_distances[TestPrescribe.ATHLETE_MISSING_MAS_NAME]
             == TestPrescribe.ATHLETE_MISSING_MAS_REST_DISTANCE
         )
         assert (
-            mas_rest_distances[TestPrescribe.ATHLETE_MISSING_MSS_NAME]
+            rest_distances[TestPrescribe.ATHLETE_MISSING_MSS_NAME]
             == TestPrescribe.ATHLETE_MISSING_MSS_REST_DISTANCE
         )

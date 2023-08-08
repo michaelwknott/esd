@@ -14,10 +14,10 @@ def workout_one():
     return Workout(
         workout_type="Passive Long Intervals - Normal",
         work_interval_time=3,
-        work_interval_percentage_mas=100,
+        work_interval_percentage_mas=1.0,
         work_interval_percentage_asr=0,
         rest_interval_time=3,
-        rest_interval_percentage_mas=0,
+        rest_interval_percentage_mas=0.0,
         rest_interval_percentage_asr=0,
     )
 
@@ -27,7 +27,7 @@ def workout_two():
     return Workout(
         workout_type="Passive Long Intervals - Extensive",
         work_interval_time=2,
-        work_interval_percentage_mas=100,
+        work_interval_percentage_mas=1.0,
         work_interval_percentage_asr=0,
         rest_interval_time=1,
         rest_interval_percentage_mas=0,
@@ -40,7 +40,7 @@ def workout_three():
     return Workout(
         workout_type="Passive Long Intervals - Intensive",
         work_interval_time=2,
-        work_interval_percentage_mas=100,
+        work_interval_percentage_mas=1.0,
         work_interval_percentage_asr=0,
         rest_interval_time=1,
         rest_interval_percentage_mas=0,
@@ -70,6 +70,9 @@ def profile_one():
     )
 
 
+# profile_one mas = 2000 / 480 = 4.17
+
+
 @pytest.fixture
 def profile_two():
     return FitnessProfile(
@@ -81,6 +84,9 @@ def profile_two():
     )
 
 
+# profile_two mas = 2000 / 470 = 4.26
+
+
 @pytest.fixture
 def profile_three():
     return FitnessProfile(
@@ -90,6 +96,9 @@ def profile_three():
         time_trial_time=500,
         sprint_time=0.4,
     )
+
+
+# profile_three mas = 2000 / 500 = 4.00
 
 
 @pytest.fixture  #

@@ -40,9 +40,9 @@ class TestWorkoutService:
             workout_one, profiles
         )
         expected_work_distances = {
-            "John Smith": 1251.0,
-            "Jane Doe": 1278.0,
-            "Joe Bloggs": 1200.0,
+            "John Smith": 751,
+            "Jane Doe": 767,
+            "Joe Bloggs": 720,
         }
         assert work_distances == expected_work_distances
 
