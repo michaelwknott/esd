@@ -47,7 +47,7 @@ class WorkoutService:
         """
         return self.fitness_profile_repository.get_all()
 
-    def calculate_work_interval_distances(
+    def _calculate_work_interval_distances(
         self, workout: Workout, fitness_profiles: list[FitnessProfile]
     ) -> dict[str, float]:
         """Calculate work interval distances for each athlete.
@@ -73,7 +73,7 @@ class WorkoutService:
             work_distances[profile.name] = work_interval_distance
         return work_distances
 
-    def calculate_rest_interval_distances(
+    def _calculate_rest_interval_distances(
         self, workout: Workout, fitness_profiles: list[FitnessProfile]
     ) -> dict[str, float]:
         """Calculate rest interval distances for each athlete.
@@ -109,10 +109,10 @@ class WorkoutService:
             fitness_profiles: The fitness profile for each athlete completing the
                 workout.
         """
-        work_distances = self.calculate_work_interval_distances(
+        work_distances = self._calculate_work_interval_distances(
             workout, fitness_profiles
         )
-        rest_distances = self.calculate_rest_interval_distances(
+        rest_distances = self._calculate_rest_interval_distances(
             workout, fitness_profiles
         )
 
