@@ -1,8 +1,3 @@
-from datetime import datetime
-
-from rich.console import Console
-from rich.table import Table
-
 from esd.adapters.repository import AbstractRepository
 from esd.domain.athlete import FitnessProfile
 from esd.domain.session import Workout
@@ -31,21 +26,28 @@ class WorkoutService:
         """
         return work_interval_time * 60
 
-    def get_workout(self, id: str) -> Workout:
-        """Get a workout from the repository.
+    def get_selected_workout(self, selected_workout: str) -> Workout:
+        """Get the selected workout from the repository.
+
+        Args:
+            selected_workout: The name of the selected workout.
 
         Returns:
             A workout.
         """
-        return self.workout_repository.get(id)
+        return self.workout_repository.get(selected_workout)
 
-    def get_workouts(self) -> list[Workout]:
-        """Get all workouts from the repository.
+    def get_workout_names(self) -> list[str]:
+        """Get all workout names from the repository.
+
+        Workout names are displayed to the user to select the required workout.
 
         Returns:
-            A list of workouts.
+            A list of workout names.
         """
-        return self.workout_repository.get_all()
+        workouts = self.workout_repository.get_all()
+
+        return [workout.name for workout in workouts]
 
     def get_fitness_profiles(self) -> list[FitnessProfile]:
         """Get all fitness profiles from the repository.
@@ -55,7 +57,7 @@ class WorkoutService:
         """
         return self.fitness_profile_repository.get_all()
 
-    def _calculate_work_interval_distances(
+    def calculate_work_interval_distances(
         self, workout: Workout, fitness_profiles: list[FitnessProfile]
     ) -> dict[str, float]:
         """Calculate work interval distances for each athlete.
@@ -81,7 +83,7 @@ class WorkoutService:
             work_distances[profile.name] = work_interval_distance
         return work_distances
 
-    def _calculate_rest_interval_distances(
+    def calculate_rest_interval_distances(
         self, workout: Workout, fitness_profiles: list[FitnessProfile]
     ) -> dict[str, float]:
         """Calculate rest interval distances for each athlete.
@@ -106,37 +108,3 @@ class WorkoutService:
             )
             rest_distances[profile.name] = rest_interval_distance
         return rest_distances
-
-    def print_workout_table(
-        self, workout: Workout, fitness_profiles: list[FitnessProfile]
-    ) -> Table:
-        """Print a table of names, work interval and rest interval distances.
-
-        Args:
-            workout: The training variables for the workout.
-            fitness_profiles: The fitness profile for each athlete completing the
-                workout.
-        """
-        work_distances = self._calculate_work_interval_distances(
-            workout, fitness_profiles
-        )
-        rest_distances = self._calculate_rest_interval_distances(
-            workout, fitness_profiles
-        )
-
-        console = Console()
-        date = datetime.now().strftime("%d/%m/%Y")
-        table = Table(title=f"{workout.name} - {date}")
-        table.add_column("Athlete Name", justify="left")
-        table.add_column("Work Distance (m)", justify="center")
-        table.add_column("Rest Distance (m)", justify="center")
-
-        for athlete in work_distances:
-            table.add_row(
-                athlete,
-                f"{work_distances[athlete]}m",
-                f"{rest_distances[athlete]}m",
-            )
-
-        console.print(table)
-        return table
