@@ -39,6 +39,14 @@ class WorkoutService:
         """
         return self.workout_repository.get(id)
 
+    def get_workouts(self) -> list[Workout]:
+        """Get all workouts from the repository.
+
+        Returns:
+            A list of workouts.
+        """
+        return self.workout_repository.get_all()
+
     def get_fitness_profiles(self) -> list[FitnessProfile]:
         """Get all fitness profiles from the repository.
 
