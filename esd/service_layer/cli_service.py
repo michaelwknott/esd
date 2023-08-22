@@ -45,6 +45,5 @@ class CLIService:
                 f"{work_distances[athlete]}m",
                 f"{rest_distances[athlete]}m",
             )
-
         console.print(table)
         return table
