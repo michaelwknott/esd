@@ -46,7 +46,7 @@ class TestWorkoutService:
         self, workout_service, profiles, workout_one
     ):
         """Test calculate_work_interval_distances method."""
-        work_distances = workout_service._calculate_work_interval_distances(
+        work_distances = workout_service.calculate_work_interval_distances(
             workout_one, profiles
         )
         expected_work_distances = {
@@ -60,7 +60,7 @@ class TestWorkoutService:
         self, workout_service, profiles, workout_one
     ):
         """Test calculate_rest_interval_distances method."""
-        rest_distances = workout_service._calculate_rest_interval_distances(
+        rest_distances = workout_service.calculate_rest_interval_distances(
             workout_one, profiles
         )
         expected_rest_distances = {
