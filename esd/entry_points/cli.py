@@ -8,7 +8,7 @@ from esd.service_layer.cli_service import CLIService
 from esd.service_layer.service import WorkoutService
 
 
-def main():
+def cli():
     """Entry point for the command-line interface (CLI).
 
     It prompts the user to select a workout from a list of available workouts, and then
@@ -37,4 +37,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    cli()
