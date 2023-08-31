@@ -4,7 +4,7 @@ from esd.adapters.fake_repository import (
     FakeFitnessProfileRepository,
     FakeWorkoutRepository,
 )
-from esd.domain.athlete import FitnessProfile
+from esd.domain.profile import FitnessProfile
 from esd.domain.session import Workout
 from esd.service_layer.cli_service import CLIService
 from esd.service_layer.service import WorkoutService

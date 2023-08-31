@@ -1,5 +1,5 @@
 from esd.adapters.repository import AbstractRepository
-from esd.domain.athlete import FitnessProfile
+from esd.domain.profile import FitnessProfile
 from esd.domain.session import Workout
 
 

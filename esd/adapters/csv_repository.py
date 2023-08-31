@@ -2,7 +2,7 @@ import csv
 from collections import defaultdict
 from pathlib import Path
 
-from esd.domain.athlete import FitnessProfile
+from esd.domain.profile import FitnessProfile
 from esd.domain.session import Workout
 
 from .repository import AbstractRepository

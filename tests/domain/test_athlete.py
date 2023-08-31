@@ -1,29 +1,24 @@
-class TestAthleteProfile:
-    ATHLETE_ONE_MAS = 4.17
-    ATHLETE_ONE_MSS = 8.33
-    ATHLETE_ONE_ASR = 4.16
+from esd.domain.athlete import Athlete
 
-    def test_max_aerobic_speed_property(self, athlete_one):
-        assert athlete_one.max_aerobic_speed == TestAthleteProfile.ATHLETE_ONE_MAS
 
-    def test_max_sprinting_speed_property(self, athlete_one):
-        assert athlete_one.max_sprinting_speed == TestAthleteProfile.ATHLETE_ONE_MSS
+class TestAthlete:
+    def test_athlete_init(self, athlete_john_smith: Athlete):
+        athlete = athlete_john_smith
 
-    def test_anaerobic_speed_reserve_property(self, athlete_one):
-        assert athlete_one.anaerobic_speed_reserve == TestAthleteProfile.ATHLETE_ONE_ASR
+        assert athlete.forename == "John"
+        assert athlete.surname == "Smith"
+        assert athlete.name == "John Smith"
+        assert athlete.date_of_birth == "01/01/2000"
+        assert athlete.sport == "Boxing"
 
-    def test_missing_max_aerobic_speed(self, athlete_missing_mas):
-        assert athlete_missing_mas.max_aerobic_speed == 0
+    def test_athlete_from_dict(self, athlete_john_smith: Athlete):
+        init_dict = {
+            "forename": "John",
+            "surname": "Smith",
+            "date_of_birth": "01/01/2000",
+            "sport": "Boxing",
+        }
 
-    def test_missing_max_sprinting_speed(self, athlete_missing_mss):
-        assert athlete_missing_mss.max_sprinting_speed == 0
+        athlete = Athlete(**init_dict)
 
-    def test_missing_max_aerobic_speed_on_anaerobic_speed_reserve(
-        self, athlete_missing_mas
-    ):
-        assert athlete_missing_mas.anaerobic_speed_reserve == 0
-
-    def test_missing_max_sprinting_speed_on_anaerobic_speed_reserve(
-        self, athlete_missing_mss
-    ):
-        assert athlete_missing_mss.anaerobic_speed_reserve == 0
+        assert athlete == athlete_john_smith

@@ -3,7 +3,7 @@ from datetime import datetime
 from rich.console import Console
 from rich.table import Table
 
-from esd.domain.athlete import FitnessProfile
+from esd.domain.profile import FitnessProfile
 from esd.domain.session import Workout
 from esd.service_layer.service import WorkoutService
 
