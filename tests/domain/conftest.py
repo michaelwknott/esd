@@ -1,7 +1,15 @@
 import pytest
 
+from esd.domain.athlete import Athlete
 from esd.domain.profile import FitnessProfile
 from esd.domain.session import Workout
+
+
+@pytest.fixture
+def athlete_john_smith():
+    return Athlete(
+        forename="John", surname="Smith", date_of_birth="01/01/2000", sport="Boxing"
+    )
 
 
 @pytest.fixture
