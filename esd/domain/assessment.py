@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from typing import Self
 
 
-@dataclass
+@dataclass(frozen=True)
 class Assessment:
     """Represents an assessment result.
 
