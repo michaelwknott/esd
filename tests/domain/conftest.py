@@ -1,8 +1,20 @@
 import pytest
 
+from esd.domain.assessment import Assessment
 from esd.domain.athlete import Athlete
 from esd.domain.profile import FitnessProfile
 from esd.domain.session import Workout
+
+
+@pytest.fixture
+def assessment_2km_time_trial():
+    return Assessment(
+        athlete_name="John Smith",
+        date="01/01/2021",
+        type="2km time trial",
+        distance=2000,
+        time=480,
+    )
 
 
 @pytest.fixture
