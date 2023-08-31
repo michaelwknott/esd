@@ -7,7 +7,17 @@ from esd.domain.session import Workout
 
 
 @pytest.fixture
-def assessment_2km_time_trial():
+def athlete_john_smith():
+    return Athlete(
+        forename="John",
+        surname="Smith",
+        date_of_birth="01/01/2000",
+        sport="Boxing",
+    )
+
+
+@pytest.fixture
+def john_smith_2km_time_trial():
     return Assessment(
         athlete_name="John Smith",
         date="01/01/2021",
@@ -18,9 +28,13 @@ def assessment_2km_time_trial():
 
 
 @pytest.fixture
-def athlete_john_smith():
-    return Athlete(
-        forename="John", surname="Smith", date_of_birth="01/01/2000", sport="Boxing"
+def anne_other_2km_time_trial():
+    return Assessment(
+        athlete_name="Anne Other",
+        date="01/01/2021",
+        type="2km time trial",
+        distance=2000,
+        time=480,
     )
 
 
