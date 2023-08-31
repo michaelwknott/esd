@@ -1,11 +1,11 @@
 import pytest
 
-from esd.domain.athlete import FitnessProfile
+from esd.domain.profile import FitnessProfile
 from esd.domain.session import Workout
 
 
 @pytest.fixture
-def athlete_one():
+def profile_one():
     return FitnessProfile(
         name="John Smith",
         time_trial_distance=2000,
@@ -16,7 +16,7 @@ def athlete_one():
 
 
 @pytest.fixture
-def athlete_missing_mas():
+def profile_missing_mas():
     return FitnessProfile(
         name="Anne Other",
         time_trial_distance=2000,
@@ -27,7 +27,7 @@ def athlete_missing_mas():
 
 
 @pytest.fixture
-def athlete_missing_mss():
+def profile_missing_mss():
     return FitnessProfile(
         name="Sam Jones",
         time_trial_distance=2000,
@@ -51,5 +51,5 @@ def workout():
 
 
 @pytest.fixture
-def fitness_profiles(athlete_one, athlete_missing_mas, athlete_missing_mss):
-    return [athlete_one, athlete_missing_mas, athlete_missing_mss]
+def fitness_profiles(profile_one, profile_missing_mas, profile_missing_mss):
+    return [profile_one, profile_missing_mas, profile_missing_mss]

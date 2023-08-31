@@ -6,7 +6,7 @@ from esd.adapters.csv_repository import (
     CsvFitnessProfileRepository,
     CsvWorkoutRepository,
 )
-from esd.domain.athlete import FitnessProfile
+from esd.domain.profile import FitnessProfile
 from esd.domain.session import Workout
 
 
