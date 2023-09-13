@@ -6,16 +6,16 @@ repos:
     -   id: end-of-file-fixer
     -   id: trailing-whitespace
 -   repo: https://github.com/psf/black
-    rev: 23.3.0
+    rev: 23.9.1
     hooks:
     -   id: black
         args: ['--config=./pyproject.toml']
 -   repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.0.276
+    rev: v0.0.289
     hooks:
       - id: ruff
 -   repo: https://github.com/pre-commit/mirrors-mypy
-    rev: 'v1.4.1'
+    rev: 'v1.5.1'
     hooks:
     -   id: mypy
         args: [--no-strict-optional, --ignore-missing-imports]
@@ -23,4 +23,22 @@ repos:
           fastapi==0.99.1,
           sqlalchemy==2.0.17,
           typing-extensions==4.7.1
+        ]
+-   repo: https://github.com/compilerla/conventional-pre-commit
+    rev: 'v2.4.0'
+    hooks:
+    -   id: conventional-pre-commit
+        stages: [commit-msg]
+        args: [
+            'build',
+            'chore',
+            'ci',
+            'docs',
+            'feat',
+            'fix',
+            'perf',
+            'refactor',
+            'revert',
+            'style',
+            'test'
         ]
