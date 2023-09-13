@@ -4,3 +4,4 @@ black
 ruff
 mypy
 pytest
+conventional-pre-commit
