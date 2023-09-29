@@ -41,31 +41,3 @@ class TestWorkoutService:
         """Test get_fitness_profile method."""
         fitness_profile = workout_service.get_fitness_profiles()
         assert fitness_profile == profiles
-
-    def test_calculate_work_interval_distances(
-        self, workout_service, profiles, workout_one
-    ):
-        """Test calculate_work_interval_distances method."""
-        work_distances = workout_service.calculate_work_interval_distances(
-            workout_one, profiles
-        )
-        expected_work_distances = {
-            "John Smith": 751,
-            "Jane Doe": 767,
-            "Joe Bloggs": 720,
-        }
-        assert work_distances == expected_work_distances
-
-    def test_calculate_rest_interval_distances(
-        self, workout_service, profiles, workout_one
-    ):
-        """Test calculate_rest_interval_distances method."""
-        rest_distances = workout_service.calculate_rest_interval_distances(
-            workout_one, profiles
-        )
-        expected_rest_distances = {
-            "John Smith": 0.0,
-            "Jane Doe": 0.0,
-            "Joe Bloggs": 0.0,
-        }
-        assert rest_distances == expected_rest_distances

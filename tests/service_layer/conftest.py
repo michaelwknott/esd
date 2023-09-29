@@ -6,7 +6,6 @@ from esd.adapters.fake_repository import (
 )
 from esd.domain.profile import FitnessProfile
 from esd.domain.session import Workout
-from esd.service_layer.cli_service import CLIService
 from esd.service_layer.service import WorkoutService
 
 
@@ -122,9 +121,3 @@ def fake_fitness_profile_repository(profile_one, profile_two, profile_three):
 def workout_service(fake_workout_repository, fake_fitness_profile_repository):
     """Return a WorkoutService."""
     return WorkoutService(fake_workout_repository, fake_fitness_profile_repository)
-
-
-@pytest.fixture
-def cli_service(workout_service):
-    """Return a CLIService."""
-    return CLIService(workout_service)
