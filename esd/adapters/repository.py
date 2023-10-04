@@ -1,6 +1,13 @@
 from abc import ABC, abstractmethod
 from typing import Generic, TypeVar
 
+
+class RepositoryError(Exception):
+    """Base class for exceptions in this module."""
+
+    pass
+
+
 T = TypeVar("T")
 
 

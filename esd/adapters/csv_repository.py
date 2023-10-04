@@ -5,7 +5,7 @@ from pathlib import Path
 from esd.domain.profile import FitnessProfile
 from esd.domain.session import Workout
 
-from .repository import AbstractRepository
+from .repository import AbstractRepository, RepositoryError
 
 
 class CsvFitnessProfileRepository(AbstractRepository[FitnessProfile]):
@@ -63,6 +63,29 @@ class CsvFitnessProfileRepository(AbstractRepository[FitnessProfile]):
         """Get a sequence of entities from the persistence layer."""
         return list(self._fitness_profiles.values())
 
+    def add(self, entity: FitnessProfile) -> None:
+        """Add an entity to the persistence layer."""
+        if entity.name in self._fitness_profiles:
+            raise RepositoryError(
+                f"FitnessProfile with name {entity.name} already exists."
+            )
+        else:
+            self._fitness_profiles[entity.name] = entity
+
+    def update(self, entity: FitnessProfile) -> None:
+        """Update an entity in the persistence layer."""
+        try:
+            self._fitness_profiles[entity.name] = entity
+        except KeyError as e:
+            raise RepositoryError(f"No FitnessProfile with name {entity.name}.") from e
+
+    def delete(self, entity: FitnessProfile) -> None:
+        """Delete an entity from the persistence layer."""
+        try:
+            del self._fitness_profiles[entity.name]
+        except KeyError as e:
+            raise RepositoryError(f"No FitnessProfile with name {entity.name}.") from e
+
 
 class CsvWorkoutRepository(AbstractRepository[Workout]):
     """CSV implementation of Workout repository."""
@@ -98,3 +121,24 @@ class CsvWorkoutRepository(AbstractRepository[Workout]):
     def get_all(self) -> list[Workout]:
         """Get a sequence of entities from the persistence layer."""
         return list(self._workouts.values())
+
+    def add(self, entity: Workout) -> None:
+        """Add an entity to the persistence layer."""
+        if entity.name in self._workouts:
+            raise RepositoryError(f"Workout with name {entity.name} already exists.")
+        else:
+            self._workouts[entity.name] = entity
+
+    def update(self, entity: Workout) -> None:
+        """Update an entity in the persistence layer."""
+        try:
+            self._workouts[entity.name] = entity
+        except KeyError as e:
+            raise RepositoryError(f"No Workout with name {entity.name}.") from e
+
+    def delete(self, entity: Workout) -> None:
+        """Delete an entity from the persistence layer."""
+        try:
+            del self._workouts[entity.name]
+        except KeyError as e:
+            raise RepositoryError(f"No Workout with name {entity.name}.") from e

@@ -103,6 +103,11 @@ def jane_smith_profile():
 
 
 @pytest.fixture
+def anne_other_profile():
+    return FitnessProfile("Anne Other", 2000, 5, 500, 0.60)
+
+
+@pytest.fixture
 def workouts_csv_filepath(tmp_path):
     filepath = tmp_path / "conditioning_workouts.csv"
     with open(filepath, "w") as f:
@@ -146,3 +151,8 @@ def workout_two():
 @pytest.fixture
 def workout_three():
     return Workout("Passive Long Intervals - Intensive", 2, 100, 0, 3, 0, 0)
+
+
+@pytest.fixture
+def workout_four():
+    return Workout("Passive Long Intervals - Intensive", 3, 100, 0, 3, 0, 0)
