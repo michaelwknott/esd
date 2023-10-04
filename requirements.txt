@@ -12,6 +12,8 @@ mdurl==0.1.2
     # via markdown-it-py
 pygments==2.16.1
     # via rich
+python-dotenv==1.0.0
+    # via -r requirements.in
 rich==13.5.2
     # via -r requirements.in
 sqlalchemy==2.0.17
