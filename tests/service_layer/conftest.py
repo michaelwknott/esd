@@ -1,8 +1,8 @@
 import pytest
 
-from esd.adapters.fake_repository import (
-    FakeFitnessProfileRepository,
-    FakeWorkoutRepository,
+from esd.adapters.in_memory_repository import (
+    InMemoryFitnessProfileRepository,
+    InMemoryWorkoutRepository,
 )
 from esd.domain.profile import FitnessProfile
 from esd.domain.session import Workout
@@ -49,14 +49,14 @@ def workout_three():
 
 
 @pytest.fixture
-def fake_workout_repository(workout_one, workout_two, workout_three):
-    """Return a FakeWorkoutRepository."""
+def in_mem_workout_repository(workout_one, workout_two, workout_three):
+    """Return a InMemoryWorkoutRepository."""
     workouts = {
         "Passive Long Intervals - Normal: 3 mins work / 3 mins rest": workout_one,
         "Passive Long Intervals - Extensive: 2 mins work / 1 mins rest": workout_two,
         "Passive Long Intervals - Intensive: 2 mins work / 1 mins rest": workout_three,
     }
-    return FakeWorkoutRepository(workouts)
+    return InMemoryWorkoutRepository(workouts)
 
 
 @pytest.fixture
@@ -107,17 +107,17 @@ def profiles(profile_one, profile_two, profile_three):
 
 
 @pytest.fixture
-def fake_fitness_profile_repository(profile_one, profile_two, profile_three):
-    """Return a FakeFitnessProfileRepository."""
+def in_mem_fitness_profile_repository(profile_one, profile_two, profile_three):
+    """Return a InMemoryFitnessProfileRepository."""
     fitness_profiles = {
         "John Smith": profile_one,
         "Jane Doe": profile_two,
         "Joe Bloggs": profile_three,
     }
-    return FakeFitnessProfileRepository(fitness_profiles)
+    return InMemoryFitnessProfileRepository(fitness_profiles)
 
 
 @pytest.fixture
-def workout_service(fake_workout_repository, fake_fitness_profile_repository):
+def workout_service(in_mem_workout_repository, in_mem_fitness_profile_repository):
     """Return a WorkoutService."""
-    return WorkoutService(fake_workout_repository, fake_fitness_profile_repository)
+    return WorkoutService(in_mem_workout_repository, in_mem_fitness_profile_repository)
