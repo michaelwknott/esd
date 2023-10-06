@@ -10,14 +10,9 @@ from esd.domain.prescribe import (
 class WorkoutService:
     """Service class for workout related operations."""
 
-    def __init__(
-        self,
-        workout_repository: AbstractRepository[Workout],
-        fitness_profile_repository: AbstractRepository[FitnessProfile],
-    ):
+    def __init__(self, workout_repository: AbstractRepository[Workout]) -> None:
         """Initialise WorkoutService with repositories."""
         self.workout_repository = workout_repository
-        self.fitness_profile_repository = fitness_profile_repository
 
     def get_selected_workout(self, selected_workout: str) -> Workout:
         """Get the selected workout from the repository.
@@ -42,6 +37,14 @@ class WorkoutService:
 
         return [workout.name for workout in workouts]
 
+
+class FitnessProfileService:
+    """Service class for fitness profile related operations."""
+
+    def __init__(self, fitness_profile_repository: AbstractRepository[FitnessProfile]):
+        """Initialise FitnessProfileService with repositories."""
+        self.fitness_profile_repository = fitness_profile_repository
+
     def get_fitness_profiles(self) -> list[FitnessProfile]:
         """Get all fitness profiles from the repository.
 
@@ -50,11 +53,12 @@ class WorkoutService:
         """
         return self.fitness_profile_repository.get_all()
 
-    def calculate_interval_distances(
-        self, workout: Workout, fitness_profiles: list[FitnessProfile]
-    ) -> tuple[dict[str, float], dict[str, float]]:
-        """Calculate work and rest interval distances for each athlete."""
-        work_distances = calculate_work_interval_distances(workout, fitness_profiles)
-        rest_distances = calculate_rest_interval_distances(workout, fitness_profiles)
 
-        return work_distances, rest_distances
+def calculate_interval_distances(
+    workout: Workout, fitness_profiles: list[FitnessProfile]
+) -> tuple[dict[str, float], dict[str, float]]:
+    """Calculate work and rest interval distances for each athlete."""
+    work_distances = calculate_work_interval_distances(workout, fitness_profiles)
+    rest_distances = calculate_rest_interval_distances(workout, fitness_profiles)
+
+    return work_distances, rest_distances

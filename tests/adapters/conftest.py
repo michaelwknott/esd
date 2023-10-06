@@ -7,7 +7,7 @@ from esd.adapters.csv_repository import (
     CsvWorkoutRepository,
 )
 from esd.domain.profile import FitnessProfile
-from domain.workout import Workout
+from esd.domain.workout import Workout
 
 
 @pytest.fixture

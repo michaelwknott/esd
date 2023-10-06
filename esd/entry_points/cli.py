@@ -6,7 +6,11 @@ from esd.adapters.csv_repository import (
     CsvWorkoutRepository,
 )
 from esd.domain.workout import Workout
-from esd.service_layer.service import WorkoutService
+from esd.service_layer.service import (
+    WorkoutService,
+    FitnessProfileService,
+    calculate_interval_distances,
+)
 
 from datetime import datetime
 
@@ -53,7 +57,8 @@ def cli():
     """
     workout_repo = CsvWorkoutRepository("data/conditioning_workouts.csv")
     fitness_profile_repo = CsvFitnessProfileRepository("data/fitness_assessments.csv")
-    workout_service = WorkoutService(workout_repo, fitness_profile_repo)
+    workout_service = WorkoutService(workout_repo)
+    fitness_profile_service = FitnessProfileService(fitness_profile_repo)
 
     workout_names = workout_service.get_workout_names()
 
@@ -66,9 +71,9 @@ def cli():
     selected_workout = workout_names[selected_workout_index]
     workout = workout_service.get_selected_workout(selected_workout)
 
-    fitness_profiles = workout_service.get_fitness_profiles()
+    fitness_profiles = fitness_profile_service.get_fitness_profiles()
 
-    work_distances, rest_distances = workout_service.calculate_interval_distances(
+    work_distances, rest_distances = calculate_interval_distances(
         workout, fitness_profiles
     )
 
