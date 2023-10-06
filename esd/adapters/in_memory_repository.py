@@ -1,6 +1,6 @@
 from esd.adapters.repository import AbstractRepository
 from esd.domain.profile import FitnessProfile
-from esd.domain.session import Workout
+from esd.domain.workout import Workout
 
 
 class InMemoryFitnessProfileRepository(AbstractRepository[FitnessProfile]):
