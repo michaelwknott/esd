@@ -1,9 +1,10 @@
 import csv
 from collections import defaultdict
+from dataclasses import fields
 from pathlib import Path
 
 from esd.domain.profile import FitnessProfile
-from esd.domain.session import Workout
+from domain.workout import Workout
 
 from .repository import AbstractRepository, RepositoryError
 
@@ -100,19 +101,22 @@ class CsvWorkoutRepository(AbstractRepository[Workout]):
         self._workouts: dict[str, Workout] = {}
         self._load()
 
-    def _convert_types(self, record: list[str]) -> list:
-        types = [str, int, float, float, int, float, float]
-        return [func(val) for func, val in zip(types, record)]
-
     def _load(self):
-        with open(self._file_path) as f:
-            reader = csv.reader(f)
-            next(reader)  # skip header row
-
+        with open(self._file_path, newline="") as f:
+            reader = csv.DictReader(f)
             for record in reader:
-                converted = self._convert_types(record)
-                workout = Workout(*converted)
+                workout = Workout.from_dict(record)
                 self._workouts[workout.name] = workout
+
+    def _save(self):
+        """Save workouts to CSV file."""
+        with open(self._file_path, "w", newline="") as f:
+            fieldnames = [field.name for field in fields(Workout)]
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+
+            for workout in self._workouts.values():
+                writer.writerow(workout.to_dict())
 
     def get(self, id: str) -> Workout:
         """Get a single entity from the persistence layer."""
@@ -126,13 +130,14 @@ class CsvWorkoutRepository(AbstractRepository[Workout]):
         """Add an entity to the persistence layer."""
         if entity.name in self._workouts:
             raise RepositoryError(f"Workout with name {entity.name} already exists.")
-        else:
-            self._workouts[entity.name] = entity
+        self._workouts[entity.name] = entity
+        self._save()
 
     def update(self, entity: Workout) -> None:
         """Update an entity in the persistence layer."""
         try:
             self._workouts[entity.name] = entity
+            self._save()
         except KeyError as e:
             raise RepositoryError(f"No Workout with name {entity.name}.") from e
 
@@ -140,5 +145,6 @@ class CsvWorkoutRepository(AbstractRepository[Workout]):
         """Delete an entity from the persistence layer."""
         try:
             del self._workouts[entity.name]
+            self._save()
         except KeyError as e:
             raise RepositoryError(f"No Workout with name {entity.name}.") from e
