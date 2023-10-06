@@ -3,7 +3,7 @@ import pytest
 from esd.domain.assessment import Assessment
 from esd.domain.athlete import Athlete
 from esd.domain.profile import FitnessProfile
-from esd.domain.session import Workout
+from esd.domain.workout import Workout
 
 
 @pytest.fixture
@@ -79,7 +79,7 @@ def workout():
         work_interval_percentage_mas=1.0,
         work_interval_percentage_asr=None,
         rest_interval_time=3,
-        rest_interval_percentage_mas=0,
+        rest_interval_percentage_mas=0.0,
         rest_interval_percentage_asr=None,
     )
 

@@ -122,9 +122,9 @@ def workouts_csv_filepath(tmp_path):
             "rest_interval_percentage_asr",
         ]
         workouts = [
-            ["Passive Long Intervals - Normal", 2, 100, 0, 2, 0, 0],
-            ["Passive Long Intervals - Extensive", 2, 100, 0, 1, 0, 0],
-            ["Passive Long Intervals - Intensive", 2, 100, 0, 3, 0, 0],
+            ["Passive Long Intervals - Normal", 2, 100.0, 0.0, 2, 0.0, 0.0],
+            ["Passive Long Intervals - Extensive", 2, 100.0, 0.0, 1, 0.0, 0.0],
+            ["Passive Long Intervals - Intensive", 2, 100.0, 0.0, 3, 0.0, 0.0],
         ]
         writer.writerow(headers)
         writer.writerows(workouts)
@@ -140,19 +140,19 @@ def workout_repo(workouts_csv_filepath):
 
 @pytest.fixture
 def workout_one():
-    return Workout("Passive Long Intervals - Normal", 2, 100, 0, 2, 0, 0)
+    return Workout("Passive Long Intervals - Normal", 2, 100.0, 0.0, 2, 0.0, 0.0)
 
 
 @pytest.fixture
 def workout_two():
-    return Workout("Passive Long Intervals - Extensive", 2, 100, 0, 1, 0, 0)
+    return Workout("Passive Long Intervals - Extensive", 2, 100.0, 0.0, 1, 0.0, 0.0)
 
 
 @pytest.fixture
 def workout_three():
-    return Workout("Passive Long Intervals - Intensive", 2, 100, 0, 3, 0, 0)
+    return Workout("Passive Long Intervals - Intensive", 2, 100.0, 0.0, 3, 0.0, 0.0)
 
 
 @pytest.fixture
 def workout_four():
-    return Workout("Passive Long Intervals - Intensive", 3, 100, 0, 3, 0, 0)
+    return Workout("Passive Long Intervals - Intensive", 3, 100.0, 0.0, 3, 0.0, 0.0)

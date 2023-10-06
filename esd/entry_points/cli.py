@@ -5,7 +5,7 @@ from esd.adapters.csv_repository import (
     CsvFitnessProfileRepository,
     CsvWorkoutRepository,
 )
-from esd.domain.session import Workout
+from esd.domain.workout import Workout
 from esd.service_layer.service import WorkoutService
 
 from datetime import datetime

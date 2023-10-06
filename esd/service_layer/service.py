@@ -1,6 +1,6 @@
 from esd.adapters.repository import AbstractRepository
 from esd.domain.profile import FitnessProfile
-from esd.domain.session import Workout
+from esd.domain.workout import Workout
 from esd.domain.prescribe import (
     calculate_work_interval_distances,
     calculate_rest_interval_distances,

@@ -5,7 +5,7 @@ from sqlalchemy import Table, Column, Float, Integer, String, create_engine
 from sqlalchemy.orm import registry, sessionmaker
 
 from esd.domain.profile import FitnessProfile
-from esd.domain.session import Workout
+from esd.domain.workout import Workout
 
 load_dotenv()
 DATABASE_URL = os.environ["DATABASE_URL"]

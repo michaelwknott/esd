@@ -5,7 +5,7 @@ from esd.adapters.in_memory_repository import (
     InMemoryWorkoutRepository,
 )
 from esd.domain.profile import FitnessProfile
-from esd.domain.session import Workout
+from esd.domain.workout import Workout
 from esd.service_layer.service import WorkoutService
 
 
@@ -15,10 +15,10 @@ def workout_one():
         workout_type="Passive Long Intervals - Normal",
         work_interval_time=3,
         work_interval_percentage_mas=1.0,
-        work_interval_percentage_asr=0,
+        work_interval_percentage_asr=0.0,
         rest_interval_time=3,
         rest_interval_percentage_mas=0.0,
-        rest_interval_percentage_asr=0,
+        rest_interval_percentage_asr=0.0,
     )
 
 
@@ -28,10 +28,10 @@ def workout_two():
         workout_type="Passive Long Intervals - Extensive",
         work_interval_time=2,
         work_interval_percentage_mas=1.0,
-        work_interval_percentage_asr=0,
+        work_interval_percentage_asr=0.0,
         rest_interval_time=1,
-        rest_interval_percentage_mas=0,
-        rest_interval_percentage_asr=0,
+        rest_interval_percentage_mas=0.0,
+        rest_interval_percentage_asr=0.0,
     )
 
 
@@ -41,10 +41,10 @@ def workout_three():
         workout_type="Passive Long Intervals - Intensive",
         work_interval_time=2,
         work_interval_percentage_mas=1.0,
-        work_interval_percentage_asr=0,
+        work_interval_percentage_asr=0.0,
         rest_interval_time=1,
-        rest_interval_percentage_mas=0,
-        rest_interval_percentage_asr=0,
+        rest_interval_percentage_mas=0.0,
+        rest_interval_percentage_asr=0.0,
     )
 
 
