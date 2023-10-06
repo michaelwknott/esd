@@ -7,7 +7,7 @@ from esd.adapters.csv_repository import (
     CsvWorkoutRepository,
 )
 from esd.domain.profile import FitnessProfile
-from esd.domain.session import Workout
+from domain.workout import Workout
 
 
 @pytest.fixture
@@ -110,12 +110,12 @@ def anne_other_profile():
 @pytest.fixture
 def workouts_csv_filepath(tmp_path):
     filepath = tmp_path / "conditioning_workouts.csv"
-    with open(filepath, "w") as f:
+    with open(filepath, "w", newline="") as f:
         writer = csv.writer(f)
         headers = [
-            "workout_name",
-            "workout_interval_time",
-            "workout_interval_percentage_mas",
+            "workout_type",
+            "work_interval_time",
+            "work_interval_percentage_mas",
             "work_interval_percentage_asr",
             "rest_interval_time",
             "rest_interval_percentage_mas",
@@ -132,7 +132,7 @@ def workouts_csv_filepath(tmp_path):
 
 
 @pytest.fixture
-def workout_profile_repo(workouts_csv_filepath):
+def workout_repo(workouts_csv_filepath):
     repo = CsvWorkoutRepository(filepath=workouts_csv_filepath)
     yield repo
     repo._workouts.clear()

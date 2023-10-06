@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 
 
 @dataclass
@@ -25,6 +25,19 @@ class Workout:
             f"{self.work_interval_time} mins work / "
             f"{self.rest_interval_time} mins rest"
         )
+
+    @classmethod
+    def from_dict(cls, d):
+        """Convert dictionary to Workout object."""
+        field_types = [str, int, float, float, int, float, float]
+        converted_dict = {
+            key: func(value) for (key, value), func in zip(d.items(), field_types)
+        }
+        return cls(**converted_dict)
+
+    def to_dict(self):
+        """Convert Workout object to a dictionary."""
+        return asdict(self)
 
 
 if __name__ == "__main__":

@@ -2,7 +2,7 @@
 
 ## About the Project
 
-An application to monitor and prescribe run-based conditioning sessions for athletes.
+An application to monitor and prescribe run-based conditioning workouts for athletes.
 
 See the following [blog post](https://michaelwknott.github.io/monitoring-and-prescribing-individualised-conditioning-sessions-part-1.html) for the project overview.
 
@@ -42,7 +42,7 @@ See the following [blog post](https://michaelwknott.github.io/monitoring-and-pre
     ```bash
     python -m esd
     ```
-2. Follow the prompts to select and prescribe a session
+2. Follow the prompts to select and prescribe a workout
     ```bash
     Available workouts:
     1. Passive Long Intervals - Normal: 2 mins work / 2 mins rest
@@ -50,7 +50,7 @@ See the following [blog post](https://michaelwknott.github.io/monitoring-and-pre
     3. Passive Long Intervals - Intensive: 2 mins work / 3 mins rest
     Select a workout:
     ```
-3. View the prescribed session in the terminal
+3. View the prescribed workout in the terminal
     ```bash
     Passive Long Intervals - Normal: 2 mins work / 2 mins rest -
                             23/08/2023

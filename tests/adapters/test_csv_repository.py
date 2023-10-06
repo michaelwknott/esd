@@ -1,3 +1,8 @@
+import csv
+
+from domain.workout import Workout
+
+
 class TestCsvFitnessProfileRepository:
     def test_load_fitness_profiles(
         self, fitness_profile_repo, john_doe_profile, jane_smith_profile
@@ -54,75 +59,161 @@ class TestCsvFitnessProfileRepository:
 
 
 class TestCsvWorkoutRepository:
-    def test_load_workouts(
-        self, workout_profile_repo, workout_one, workout_two, workout_three
-    ):
-        workout_profile_repo._load()
+    def test_load_workouts(self, workout_repo):
+        workout1 = Workout("Passive Long Intervals - Normal", 2, 100, 0, 2, 0, 0)
+        workout2 = Workout("Passive Long Intervals - Extensive", 2, 100, 0, 1, 0, 0)
+        workout3 = Workout("Passive Long Intervals - Intensive", 2, 100, 0, 3, 0, 0)
 
-        workout_one_name = "Passive Long Intervals - Normal: 2 mins work / 2 mins rest"
-        workout_two_name = (
-            "Passive Long Intervals - Extensive: 2 mins work / 1 mins rest"
+        workout1_name = "Passive Long Intervals - Normal: 2 mins work / 2 mins rest"
+        workout2_name = "Passive Long Intervals - Extensive: 2 mins work / 1 mins rest"
+        workout3_name = "Passive Long Intervals - Intensive: 2 mins work / 3 mins rest"
+
+        workout_repo._load()
+
+        assert workout_repo._workouts[workout1_name] == workout1
+        assert workout_repo._workouts[workout2_name] == workout2
+        assert workout_repo._workouts[workout3_name] == workout3
+
+    def test_save_workouts(self, workout_repo):
+        workout1 = Workout(
+            "Passive Long Intervals - Normal", 3, 100.0, 0.0, 3, 0.0, 0.0
         )
-        workout_three_name = (
-            "Passive Long Intervals - Intensive: 2 mins work / 3 mins rest"
+        workout2 = Workout(
+            "Passive Long Intervals - Extensive", 3, 100.0, 0.0, 2, 0.0, 0.0
+        )
+        workout3 = Workout(
+            "Passive Long Intervals - Intensive", 3, 100.0, 0.0, 4, 0.0, 0.0
         )
 
-        assert workout_profile_repo._workouts[workout_one_name] == workout_one
-        assert workout_profile_repo._workouts[workout_two_name] == workout_two
-        assert workout_profile_repo._workouts[workout_three_name] == workout_three
+        additional_workouts = {
+            "Passive Long Intervals - Normal: 3 mins work / 3 mins rest": workout1,
+            "Passive Long Intervals - Extensive: 3 mins work / 2 mins rest": workout2,
+            "Passive Long Intervals - Intensive: 3 mins work / 4 mins rest": workout3,
+        }
 
-    def test_get_workout(
-        self, workout_profile_repo, workout_one, workout_two, workout_three
-    ):
-        cond_workout_one = workout_profile_repo.get(workout_one.name)
-        cond_workout_two = workout_profile_repo.get(workout_two.name)
-        cond_workout_three = workout_profile_repo.get(workout_three.name)
+        workout_repo._workouts.update(additional_workouts)
+        workout_repo._save()
 
-        assert cond_workout_one == workout_profile_repo._workouts[workout_one.name]
-        assert cond_workout_two == workout_profile_repo._workouts[workout_two.name]
-        assert cond_workout_three == workout_profile_repo._workouts[workout_three.name]
+        with open(workout_repo._file_path) as f:
+            reader = csv.reader(f)
+            rows = list(reader)
+        assert rows == [
+            [
+                "workout_type",
+                "work_interval_time",
+                "work_interval_percentage_mas",
+                "work_interval_percentage_asr",
+                "rest_interval_time",
+                "rest_interval_percentage_mas",
+                "rest_interval_percentage_asr",
+            ],
+            ["Passive Long Intervals - Normal", "2", "100.0", "0.0", "2", "0.0", "0.0"],
+            [
+                "Passive Long Intervals - Extensive",
+                "2",
+                "100.0",
+                "0.0",
+                "1",
+                "0.0",
+                "0.0",
+            ],
+            [
+                "Passive Long Intervals - Intensive",
+                "2",
+                "100.0",
+                "0.0",
+                "3",
+                "0.0",
+                "0.0",
+            ],
+            [
+                "Passive Long Intervals - Normal",
+                "3",
+                "100.0",
+                "0.0",
+                "3",
+                "0.0",
+                "0.0",
+            ],
+            [
+                "Passive Long Intervals - Extensive",
+                "3",
+                "100.0",
+                "0.0",
+                "2",
+                "0.0",
+                "0.0",
+            ],
+            [
+                "Passive Long Intervals - Intensive",
+                "3",
+                "100.0",
+                "0.0",
+                "4",
+                "0.0",
+                "0.0",
+            ],
+        ]
 
-    def test_get_all_workouts(
-        self, workout_profile_repo, workout_one, workout_two, workout_three
-    ):
-        workouts = workout_profile_repo.get_all()
+    def test_get_workout(self, workout_repo):
+        workout = Workout("Passive Long Intervals - Normal", 2, 100.0, 0.0, 2, 0.0, 0.0)
+        workout_name = "Passive Long Intervals - Normal: 2 mins work / 2 mins rest"
 
-        assert workout_one in workouts
-        assert workout_two in workouts
-        assert workout_three in workouts
+        cond_workout = workout_repo.get(workout_name)
 
-    def test_add_workout(self, workout_profile_repo, workout_four):
-        workout_profile_repo.add(workout_four)
+        assert cond_workout == workout
 
-        assert workout_four.name in workout_profile_repo._workouts
+    def test_get_all_workouts(self, workout_repo):
+        workout1 = Workout(
+            "Passive Long Intervals - Normal", 2, 100.0, 0.0, 2, 0.0, 0.0
+        )
+        workout2 = Workout(
+            "Passive Long Intervals - Extensive", 2, 100.0, 0.0, 1, 0.0, 0.0
+        )
+        workout3 = Workout(
+            "Passive Long Intervals - Intensive", 2, 100.0, 0.0, 3, 0.0, 0.0
+        )
 
-    def test_update_workout(self, workout_profile_repo):
+        workouts = workout_repo.get_all()
+
+        assert workout1 in workouts
+        assert workout2 in workouts
+        assert workout3 in workouts
+
+    def test_add_workout(self, workout_repo, workout_four):
+        Workout("Passive Long Intervals - Intensive", 3, 100.0, 0.0, 3, 0.0, 0.0)
+
+        workout_repo.add(workout_four)
+
+        assert workout_four.name in workout_repo._workouts
+
+    def test_update_workout(self, workout_repo):
         original_work_interval_percentage_mas = 100
         updated_work_interval_percentage_mas = 110
 
         workout_name = "Passive Long Intervals - Normal: 2 mins work / 2 mins rest"
 
-        workout_one = workout_profile_repo.get(workout_name)
+        workout = workout_repo._workouts[workout_name]
         assert (
-            workout_one.work_interval_percentage_mas
+            workout.work_interval_percentage_mas
             == original_work_interval_percentage_mas
         )
 
-        workout_one.work_interval_percentage_mas = 110
-        workout_profile_repo.update(workout_one)
+        workout.work_interval_percentage_mas = 110
+        workout_repo.update(workout)
 
-        updated_workout_one = workout_profile_repo.get(workout_name)
+        updated_workout = workout_repo._workouts[workout_name]
         assert (
-            updated_workout_one.work_interval_percentage_mas
+            updated_workout.work_interval_percentage_mas
             == updated_work_interval_percentage_mas
         )
 
-    def test_delete_workout(self, workout_profile_repo):
+    def test_delete_workout(self, workout_repo):
         workout_name = "Passive Long Intervals - Normal: 2 mins work / 2 mins rest"
+        workout = workout_repo._workouts[workout_name]
 
-        workout_one = workout_profile_repo.get(workout_name)
-        assert workout_one in workout_profile_repo.get_all()
+        assert workout in workout_repo._workouts.values()
 
-        workout_profile_repo.delete(workout_one)
+        workout_repo.delete(workout)
 
-        assert workout_one not in workout_profile_repo.get_all()
+        assert workout not in workout_repo._workouts.values()
