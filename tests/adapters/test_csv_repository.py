@@ -1,6 +1,6 @@
 import csv
 
-from domain.workout import Workout
+from esd.domain.workout import Workout
 
 
 class TestCsvFitnessProfileRepository:
