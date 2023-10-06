@@ -4,7 +4,7 @@ from dataclasses import fields
 from pathlib import Path
 
 from esd.domain.profile import FitnessProfile
-from domain.workout import Workout
+from esd.domain.workout import Workout
 
 from .repository import AbstractRepository, RepositoryError
 
