@@ -25,6 +25,14 @@ class WorkoutService:
         """
         return self.workout_repository.get(selected_workout)
 
+    def update_workout(self, workout: Workout) -> None:
+        """Update the workout in the repository.
+
+        Args:
+            workout: The workout to be updated.
+        """
+        self.workout_repository.update(workout)
+
     def get_workout_names(self) -> list[str]:
         """Get all workout names from the repository.
 
