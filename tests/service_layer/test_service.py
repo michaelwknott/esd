@@ -37,7 +37,9 @@ class TestWorkoutService:
         ]
         assert workout_names == expected_workout_names
 
-    def test_get_fitness_profiles(self, workout_service, profiles):
+
+class TestFitnessProfileService:
+    def test_get_fitness_profiles(self, fitness_profile_service, profiles):
         """Test get_fitness_profile method."""
-        fitness_profile = workout_service.get_fitness_profiles()
+        fitness_profile = fitness_profile_service.get_fitness_profiles()
         assert fitness_profile == profiles

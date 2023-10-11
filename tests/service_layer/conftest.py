@@ -6,7 +6,7 @@ from esd.adapters.in_memory_repository import (
 )
 from esd.domain.profile import FitnessProfile
 from esd.domain.workout import Workout
-from esd.service_layer.service import WorkoutService
+from esd.service_layer.service import WorkoutService, FitnessProfileService
 
 
 @pytest.fixture
@@ -118,6 +118,12 @@ def in_mem_fitness_profile_repository(profile_one, profile_two, profile_three):
 
 
 @pytest.fixture
-def workout_service(in_mem_workout_repository, in_mem_fitness_profile_repository):
+def workout_service(in_mem_workout_repository):
     """Return a WorkoutService."""
-    return WorkoutService(in_mem_workout_repository, in_mem_fitness_profile_repository)
+    return WorkoutService(in_mem_workout_repository)
+
+
+@pytest.fixture
+def fitness_profile_service(in_mem_fitness_profile_repository):
+    """Return a FitnessProfileService."""
+    return FitnessProfileService(in_mem_fitness_profile_repository)
