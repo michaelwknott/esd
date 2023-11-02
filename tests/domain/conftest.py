@@ -1,41 +1,7 @@
 import pytest
 
-from esd.domain.assessment import Assessment
-from esd.domain.athlete import Athlete
 from esd.domain.profile import FitnessProfile
 from esd.domain.workout import Workout
-
-
-@pytest.fixture
-def athlete_john_smith():
-    return Athlete(
-        forename="John",
-        surname="Smith",
-        date_of_birth="01/01/2000",
-        sport="Boxing",
-    )
-
-
-@pytest.fixture
-def john_smith_2km_time_trial():
-    return Assessment(
-        athlete_name="John Smith",
-        date="01/01/2021",
-        type="2km time trial",
-        distance=2000,
-        time=480,
-    )
-
-
-@pytest.fixture
-def anne_other_2km_time_trial():
-    return Assessment(
-        athlete_name="Anne Other",
-        date="01/01/2021",
-        type="2km time trial",
-        distance=2000,
-        time=480,
-    )
 
 
 @pytest.fixture
